@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Игра Кости - Dice game</title>
+</head>
+
+<body> 
+Привет, <%= @player_name %>!
+<br />
+<br />
+<%= message %>
+<br />
+<br />
+Количество кубиков: <%= @dice_num %>.
+<br />
+У вас <%= @credit %> кредитов.
+<br />
+<form name="input" action="/" method="get">
+    Загаданное число: <input type="text" name="bet" id="bet"><br />
+    Ваша ставка: <input type="text" name="stake" id="stake"><br />
+    <input type="hidden" name="action" value="run">
+    <input type="submit" value="Играть">
+</form>
+<br />
+<a href="/?action=logout">Выйти из игры</a>
+
+<script>
+    window.onload = function() {
+        // Проверяем, есть ли сохраненные значения в localstorage
+        if(localStorage.getItem('bet') !== null && localStorage.getItem('stake') !== null) {
+            // Получаем сохраненные значения из localstorage
+            var savedBet = localStorage.getItem('bet');
+            var savedStake = localStorage.getItem('stake');
+        
+            // Заполняем поля ввода сохраненными значениями
+            document.getElementById('bet').value = savedBet;
+            document.getElementById('stake').value = savedStake;
+        }
+    }
+
+    // Сохраняем значения в localstorage при отправке формы
+    document.querySelector('form').addEventListener('submit', function() {
+        var betValue = document.getElementById('bet').value;
+        var stakeValue = document.getElementById('stake').value;
+    
+        // Сохраняем значения в localstorage
+        localStorage.setItem('bet', betValue);
+        localStorage.setItem('stake', stakeValue);
+    });       
+</script>
+
+</body>
+</html>
